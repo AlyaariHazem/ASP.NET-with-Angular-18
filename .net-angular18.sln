@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ASP.NET-with-Angular-18", "ASP.NET-with-Angular-18", "{F2526F05-0FFF-463E-B36E-2D052E52D445}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend", "ASP.NET-with-Angular-18\Backend\Backend.csproj", "{5FF13032-D8F0-43EF-AFE1-F43CC3390D05}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5FF13032-D8F0-43EF-AFE1-F43CC3390D05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FF13032-D8F0-43EF-AFE1-F43CC3390D05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FF13032-D8F0-43EF-AFE1-F43CC3390D05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FF13032-D8F0-43EF-AFE1-F43CC3390D05}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5FF13032-D8F0-43EF-AFE1-F43CC3390D05} = {F2526F05-0FFF-463E-B36E-2D052E52D445}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EB8507BF-C86A-4FBB-B9EC-08F2F4A05F23}
+	EndGlobalSection
+EndGlobal
