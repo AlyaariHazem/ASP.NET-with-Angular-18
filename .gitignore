@@ -1,0 +1,58 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
+#backend Asp.net
+bin/
+obj/
+Backend.csproj.nuget.dgspec.json
+appsettings.Development.json 
+appsettings.Staging.json
+appsettings.Production.json
+launchSettings.json
+Properties/launchSettings.json
+node_modules/
+bower_components/
+wwwroot/lib/
+wwwroot/dist/
+wwwroot/tmp/
+wwwroot/coverage/
+wwwroot/reports/ 
+wwwroot/logs/
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# Miscellaneous
+/.angular/cache
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+
+# System files
+.DS_Store
+Thumbs.db
