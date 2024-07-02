@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\.net-angular18\\ASP.NET-with-Angular-18\\Backend\\Backend.csproj": {}
+    "D:\\.net-angular18\\ASP.NET-with-Angular-18\\Backend\\Backend.csproj": {}
   },
   "projects": {
-    "E:\\.net-angular18\\ASP.NET-with-Angular-18\\Backend\\Backend.csproj": {
+    "D:\\.net-angular18\\ASP.NET-with-Angular-18\\Backend\\Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\.net-angular18\\ASP.NET-with-Angular-18\\Backend\\Backend.csproj",
+        "projectUniqueName": "D:\\.net-angular18\\ASP.NET-with-Angular-18\\Backend\\Backend.csproj",
         "projectName": "Backend",
-        "projectPath": "E:\\.net-angular18\\ASP.NET-with-Angular-18\\Backend\\Backend.csproj",
+        "projectPath": "D:\\.net-angular18\\ASP.NET-with-Angular-18\\Backend\\Backend.csproj",
         "packagesPath": "C:\\Users\\حازم\\.nuget\\packages\\",
-        "outputPath": "E:\\.net-angular18\\ASP.NET-with-Angular-18\\Backend\\obj\\",
+        "outputPath": "D:\\.net-angular18\\ASP.NET-with-Angular-18\\Backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\حازم\\AppData\\Roaming\\NuGet\\NuGet.Config"
