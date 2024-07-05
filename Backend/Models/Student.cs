@@ -16,15 +16,17 @@ public class Student
     public int Grade { get; set; }
     public int Phone { get; set; }
     public string DivisionName { get; set; } = string.Empty;
-    public decimal FeesBalance { get; set; }
-    public decimal FeeStill { get; set; }
+    // public decimal FeesBalance { get; set; }
+    // public decimal FeeStill { get; set; }
     public string Password { get; set; } = string.Empty;
     public int DivisionID { get; set; }
     public int GuardianID { get; set; }
-    public int UserID { get; set; }
-
-    // public Division Division { get; set; }
-    // public Guardian Guardian { get; set; }
+    // public int UserID { get; set; }
+    public Class Class { get; set; }
+    public IList<TeacherStudent> TeacherStudent { get; set; }
+    public IList<SubjectStudent> SubjectStudent { get; set; }
+    public Guardian Guardians { get; set; }
+    public Division Division { get; set; }
     // public User User { get; set; }
     // public IList<TeacherStudentSubject> TeacherStudentSubjects { get; set; } 
     // public IList<FeepaymentStudentGardian> FeepaymentStudentGardian { get; set; }

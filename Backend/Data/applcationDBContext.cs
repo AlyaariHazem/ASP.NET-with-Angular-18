@@ -15,153 +15,105 @@ namespace Backend.Data
         public DbSet<Class> Classes { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Manager> Managers { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<SubjectStudent> SubjectStudents { get; set; }
+        public DbSet<Division> Divisions { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<Guardian> Guardians { get; set; }
+        public DbSet<TeacherStudent> TeacherStudents { get; set; }
         // public DbSet<Fee> Fees { get; set; }
         // public DbSet<User> Users { get; set; }
         // public DbSet<FeePayment> FeePayments { get; set; }
         // public DbSet<Guardian> Guardians { get; set; }
         // public DbSet<Stage> Stages { get; set; }
-        // public DbSet<Student> Students { get; set; }
         // public DbSet<StudentClass> StudentClasses { get; set; }
         // public DbSet<TeacherStudentSubject> TeacherStudentSubjects { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // // Configure primary keys
-            // // modelBuilder.Entity<FeepaymentStudentGardian>().HasKey(fsg => new { fsg.StudentID, fsg.GuardianID, fsg.FeePaymentID });
-            // modelBuilder.Entity<ManagerTeacher>().HasKey(mt => new { mt.ManagerID, mt.TeacherID });
-            // modelBuilder.Entity<TeacherStudentSubject>().HasKey(tss => new { tss.StudentID, tss.TeacherID, tss.SubjectID });
-            // modelBuilder.Entity<StudentClass>().HasKey(sc => new { sc.StudentClassID, sc.ClassID });
-
-            // Configure relationships
-            // modelBuilder.Entity<Class>()
-            //     .HasMany(c => c.Divisions)
-            //     .WithOne(d => d.Class)
-            //     .HasForeignKey(d => d.ClassID);
-
-            // modelBuilder.Entity<Class>()
-            //     .HasMany(c => c.Subjects)
-            //     .WithOne(s => s.Class)
-            //     .HasForeignKey(s => s.SubjClassID);
-
-            // modelBuilder.Entity<Class>()
-            //     .HasMany(c => c.Fees)
-            //     .WithOne()
-            //     .HasForeignKey(f => f.FeeID);
-
-            // modelBuilder.Entity<Division>()
-            //     .HasMany(d => d.Students)
-            //     .WithOne(s => s.Division)
-            //     .HasForeignKey(s => s.StudentDivisionID);
-
-            // modelBuilder.Entity<Guardian>()
-            //     .HasMany(g => g.Students)
-            //     .WithOne(s => s.Guardian)
-            //     .HasForeignKey(s => s.StudentGuardianID);
-
-            // modelBuilder.Entity<Guardian>()
-            //     .HasMany(g => g.FeepaymentStudentGardian)
-            //     .WithOne(fsg => fsg.Guardian)
-            //     .HasForeignKey(fsg => fsg.GuardianID);
+            modelBuilder.Entity<TeacherStudent>().HasKey(TS => new { TS.StudentID, TS.TeacherID });
+            modelBuilder.Entity<SubjectStudent>().HasKey(SS=> new{SS.SubjectID,SS.StudentID});
 
             modelBuilder.Entity<Manager>()
                 .HasOne<School>(m => m.School)
                 .WithOne(s => s.Managers)
                 .HasForeignKey<School>(m => m.ManagerID);
 
-            // modelBuilder.Entity<Manager>()
-            //     .HasMany(m => m.ManagerTeachers)
-            //     .WithOne(mt => mt.Manager)
-            //     .HasForeignKey(mt => mt.ManagerID);
+            // many to many relationship for Teachars and Students
+            modelBuilder.Entity<TeacherStudent>()
+            .HasOne<Student>(S=>S.Student)
+            .WithMany(TS=>TS.TeacherStudent)
+            .HasForeignKey(S=>S.StudentID)
+            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<TeacherStudent>()
+            .HasOne<Teacher>(T=>T.Teacher)
+            .WithMany(TS=>TS.TeacherStudents)
+            .HasForeignKey(T=>T.TeacherID)
+            .OnDelete(DeleteBehavior.Restrict);
 
+            // one to many for School and Class
             modelBuilder.Entity<School>()
                 .HasMany<Class>(s => s.Classes)
                 .WithOne(Class=>Class.School)
                 .HasForeignKey(C => C.SchoolID);
 
-            // modelBuilder.Entity<Stage>()
-            //     .HasOne(s => s.Year)
-            //     .WithMany()
-            //     .HasForeignKey(s => s.StageYearID);
-
-            // modelBuilder.Entity<Student>()
-            //     .HasMany(s => s.TeacherStudentSubjects)
-            //     .WithOne(tss => tss.Student)
-            //     .HasForeignKey(tss => tss.StudentID);
-
-            // modelBuilder.Entity<Student>()
-            //     .HasMany(s => s.StudentClasses)
-            //     .WithOne(sc => sc.Student)
-            //     .HasForeignKey(sc => sc.StudentClassID);
-
-            // modelBuilder.Entity<Student>()
-            //     .HasMany(s => s.FeepaymentStudentGardian)
-            //     .WithOne(fsg => fsg.Student)
-            //     .HasForeignKey(fsg => fsg.StudentID);
-
-            // modelBuilder.Entity<Subject>()
-            //     .HasMany(s => s.TeacherStudentSubjects)
-            //     .WithOne(tss => tss.Subject)
-            //     .HasForeignKey(tss => tss.SubjectID);
-
-            // modelBuilder.Entity<Teacher>()
-            //     .HasMany(t => t.TeacherStudentSubjects)
-            //     .WithOne(tss => tss.Teacher)
-            //     .HasForeignKey(tss => tss.TeacherID);
-
-            // modelBuilder.Entity<Teacher>()
-            //     .HasMany(t => t.ManagerTeachers)
-            //     .WithOne(mt => mt.Teacher)
-            //     .HasForeignKey(mt => mt.TeacherID);
-
+                //one to many for Managers and Teachers
             modelBuilder.Entity<Manager>()
-                .HasMany<Teacher>(M => M.Teachers)
-                .WithOne(T => T.Manager)
+                .HasMany<Teacher>(T => T.Teachers)
+                .WithOne(M => M.Manager)
                 .HasForeignKey(T => T.TeacherID)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);//Restrict for I delete the Manager the Teacher is not deleted
 
-        //     modelBuilder.Entity<User>()
-        //         .HasMany(u => u.Students)
-        //         .WithOne(s => s.User)
-        //         .HasForeignKey(s => s.StudentUserID);
+            // many to many relationship for Subjects and Students
+            modelBuilder.Entity<SubjectStudent>()
+            .HasOne<Subject>(S => S.Subject)
+            .WithMany(SS=>SS.SubjectStudent)
+            .HasForeignKey(S => S.SubjectID)
+            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<SubjectStudent>()
+            .HasOne<Student>(S=>S.Student)
+            .WithMany(SS=>SS.SubjectStudent)
+            .HasForeignKey(S=>S.StudentID)
+            .OnDelete(DeleteBehavior.Restrict);
 
-        //     modelBuilder.Entity<User>()
-        //         .HasMany(u => u.Guardians)
-        //         .WithOne(g => g.User)
-        //         .HasForeignKey(g => g.UserID);
+            // One to many relationship for Class and Students
+            modelBuilder.Entity<Class>()
+            .HasMany<Student>(S=>S.Students)
+            .WithOne(C=>C.Class)
+            .HasForeignKey(S=>S.StudentID)
+            .OnDelete(DeleteBehavior.Restrict);
 
-        //     // Configure property attributes
-        //     modelBuilder.Entity<Class>()
-        //         .Property(c => c.ClassName)
-        //         .IsRequired();
+            // One to many relationship for Class and Subject
+            modelBuilder.Entity<Class>()
+            .HasMany<Subject>(S=>S.Subjects)
+            .WithOne(C=>C.Class)
+            .HasForeignKey(S=>S.SubjectID);
 
-        //     modelBuilder.Entity<Fee>()
-        //         .Property(f => f.FeeName)
-        //         .IsRequired();
+            // One to many relationship for Class and Division
+            modelBuilder.Entity<Class>()
+            .HasMany<Division>(D=>D.Divisions)
+            .WithOne(C=>C.Class)
+            .HasForeignKey(D=>D.DivisionID);
 
-        //     modelBuilder.Entity<User>()
-        //         .Property(u => u.FirstName)
-        //         .IsRequired();
+            // One to many relationship for Division and Student
+            modelBuilder.Entity<Division>()
+            .HasMany<Student>(S=>S.Students)
+            .WithOne(D=>D.Division)
+            .HasForeignKey(S=>S.StudentID);
 
-        //     modelBuilder.Entity<Student>()
-        //         .Property(s => s.FirstName)
-        //         .IsRequired();
+            // One to one relationship for class and Teacher
+            modelBuilder.Entity<Class>()
+                .HasOne<Teacher>(C => C.Teacher)
+                .WithOne(T => T.Class)
+                .HasForeignKey<Teacher>(C => C.ClassID);  
+            
+            // One to many relationship for class and Teacher
+            modelBuilder.Entity<Guardian>()
+            .HasMany<Student>(S=>S.Students)
+            .WithOne(G=>G.Guardians)
+            .HasForeignKey(S=>S.StudentID);
 
-        //     modelBuilder.Entity<Teacher>()
-        //         .Property(t => t.FirstName)
-        //         .IsRequired();
 
-        //     // Configure cascade delete behavior to avoid cycles or multiple cascade paths
-        //     modelBuilder.Entity<Student>()
-        //         .HasMany(s => s.StudentClasses)
-        //         .WithOne(sc => sc.Student)
-        //         .HasForeignKey(sc => sc.StudentClassID)
-        //         .OnDelete(DeleteBehavior.Restrict);
-
-        //     modelBuilder.Entity<User>()
-        //         .HasMany(u => u.Students)
-        //         .WithOne(s => s.User)
-        //         .HasForeignKey(s => s.StudentUserID)
-        //         .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
