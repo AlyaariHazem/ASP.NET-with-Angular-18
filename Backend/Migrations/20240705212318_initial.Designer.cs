@@ -4,16 +4,19 @@ using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
 namespace Backend.Migrations
 {
-    [DbContext(typeof(ApplcationDBContext))]
-    partial class ApplcationDBContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(DatabaseContext))]
+    [Migration("20240705212318_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -177,8 +180,11 @@ namespace Backend.Migrations
                     b.Property<int>("StudentID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("ClassID")
+                        .HasColumnType("int");
+
+                    b.Property<DateOnly>("DateOfBirth")
+                        .HasColumnType("date");
 
                     b.Property<int>("DivisionID")
                         .HasColumnType("int");
@@ -226,7 +232,7 @@ namespace Backend.Migrations
                     b.Property<int>("SubjectID")
                         .HasColumnType("int");
 
-                    b.Property<int>("SubjClassID")
+                    b.Property<int>("ClassID")
                         .HasColumnType("int");
 
                     b.Property<string>("SubjectName")
@@ -269,8 +275,8 @@ namespace Backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("HireDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("HireDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -321,7 +327,7 @@ namespace Backend.Migrations
                     b.HasOne("Backend.Models.School", "School")
                         .WithMany("Classes")
                         .HasForeignKey("SchoolID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("School");
@@ -332,7 +338,7 @@ namespace Backend.Migrations
                     b.HasOne("Backend.Models.Class", "Class")
                         .WithMany("Divisions")
                         .HasForeignKey("DivisionID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Class");
@@ -340,13 +346,13 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Models.School", b =>
                 {
-                    b.HasOne("Backend.Models.Manager", "Managers")
+                    b.HasOne("Backend.Models.Manager", "Manager")
                         .WithOne("School")
                         .HasForeignKey("Backend.Models.School", "ManagerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Managers");
+                    b.Navigation("Manager");
                 });
 
             modelBuilder.Entity("Backend.Models.Student", b =>
@@ -360,20 +366,20 @@ namespace Backend.Migrations
                     b.HasOne("Backend.Models.Division", "Division")
                         .WithMany("Students")
                         .HasForeignKey("StudentID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Backend.Models.Guardian", "Guardians")
+                    b.HasOne("Backend.Models.Guardian", "Guardian")
                         .WithMany("Students")
                         .HasForeignKey("StudentID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Class");
 
                     b.Navigation("Division");
 
-                    b.Navigation("Guardians");
+                    b.Navigation("Guardian");
                 });
 
             modelBuilder.Entity("Backend.Models.Subject", b =>
@@ -381,7 +387,7 @@ namespace Backend.Migrations
                     b.HasOne("Backend.Models.Class", "Class")
                         .WithMany("Subjects")
                         .HasForeignKey("SubjectID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Class");
@@ -390,13 +396,13 @@ namespace Backend.Migrations
             modelBuilder.Entity("Backend.Models.SubjectStudent", b =>
                 {
                     b.HasOne("Backend.Models.Student", "Student")
-                        .WithMany("SubjectStudent")
+                        .WithMany("SubjectStudents")
                         .HasForeignKey("StudentID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Backend.Models.Subject", "Subject")
-                        .WithMany("SubjectStudent")
+                        .WithMany("SubjectStudents")
                         .HasForeignKey("SubjectID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -411,7 +417,7 @@ namespace Backend.Migrations
                     b.HasOne("Backend.Models.Class", "Class")
                         .WithOne("Teacher")
                         .HasForeignKey("Backend.Models.Teacher", "ClassID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Backend.Models.Manager", "Manager")
@@ -428,7 +434,7 @@ namespace Backend.Migrations
             modelBuilder.Entity("Backend.Models.TeacherStudent", b =>
                 {
                     b.HasOne("Backend.Models.Student", "Student")
-                        .WithMany("TeacherStudent")
+                        .WithMany("TeacherStudents")
                         .HasForeignKey("StudentID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -481,14 +487,14 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Models.Student", b =>
                 {
-                    b.Navigation("SubjectStudent");
+                    b.Navigation("SubjectStudents");
 
-                    b.Navigation("TeacherStudent");
+                    b.Navigation("TeacherStudents");
                 });
 
             modelBuilder.Entity("Backend.Models.Subject", b =>
                 {
-                    b.Navigation("SubjectStudent");
+                    b.Navigation("SubjectStudents");
                 });
 
             modelBuilder.Entity("Backend.Models.Teacher", b =>

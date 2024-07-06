@@ -12,7 +12,7 @@ public class Teacher
     public string FirstName { get; set; } = string.Empty;
     public string MiddleName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
-    public DateTime HireDate { get; set; }= DateTime.Now;
+    public DateOnly HireDate { get; set; }
     public string Gender { get; set; } = string.Empty;
     [Column(TypeName="decimal(18,2)")]
     public decimal Salary { get; set; }
@@ -25,7 +25,7 @@ public class Teacher
     public Manager Manager { get; set; }
     public Class Class { get; set; }
     public int ClassID { get; set; }
-    public IList<TeacherStudent> TeacherStudents { get; set; }
+    public ICollection<TeacherStudent> TeacherStudents { get; set; }
 
     // public Class ManagedClass { get; set; }
     // public User User { get; set; }

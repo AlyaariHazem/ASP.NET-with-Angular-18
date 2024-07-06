@@ -13,7 +13,7 @@ public class School
     public string SchoolLocation { get; set; }
     // public int SchoolManagerID { get; set; }
     public ICollection<Class> Classes { get; set; }
-    public Manager Managers { get; set; }
+    public Manager Manager { get; set; }
     public int ManagerID { get; set; }
     
     // public IList<Manager> Yeares { get; set; }

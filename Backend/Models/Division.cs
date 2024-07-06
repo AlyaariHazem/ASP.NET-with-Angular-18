@@ -11,5 +11,5 @@ public class Division
     public string DivisionName { get; set; } = string.Empty;
     public int ClassID { get; set; }
     public Class Class { get; set; }
-    public IList<Student> Students { get; set; }
+    public ICollection<Student> Students { get; set; }
 }

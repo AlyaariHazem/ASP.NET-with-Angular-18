@@ -1,15 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+// using System;
+// using System.Collections.Generic;
+// using System.Linq;
+// using System.Threading.Tasks;
 
-namespace Backend.Models;
+// namespace Backend.Models;
 
-public class StudentClass
-{
-    public int StudentClassID { get; set; }
-    public int ClassID { get; set; } // Corrected property name
+// public class StudentClass
+// {
+//     public int ClassID { get; set; } // Corrected property name
 
-    public Student Student { get; set; }
-    public Class Class { get; set; }
-}
+//     public Class Class { get; set; }
+//     public int StudentID { get; set; }
+//     public Student Student { get; set; }
+// }

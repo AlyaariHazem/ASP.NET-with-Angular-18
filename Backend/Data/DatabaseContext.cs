@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Data
 {
-    public class ApplcationDBContext : DbContext
+    public class DatabaseContext : DbContext
     {
-        public ApplcationDBContext(DbContextOptions<ApplcationDBContext> options) : base(options) {}
+        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) {}
 
         public DbSet<School> Schools { get; set; }
         public DbSet<Class> Classes { get; set; }
@@ -36,13 +36,13 @@ namespace Backend.Data
 
             modelBuilder.Entity<Manager>()
                 .HasOne<School>(m => m.School)
-                .WithOne(s => s.Managers)
+                .WithOne(s => s.Manager)
                 .HasForeignKey<School>(m => m.ManagerID);
 
             // many to many relationship for Teachars and Students
             modelBuilder.Entity<TeacherStudent>()
             .HasOne<Student>(S=>S.Student)
-            .WithMany(TS=>TS.TeacherStudent)
+            .WithMany(TS=>TS.TeacherStudents)
             .HasForeignKey(S=>S.StudentID)
             .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<TeacherStudent>()
@@ -55,7 +55,8 @@ namespace Backend.Data
             modelBuilder.Entity<School>()
                 .HasMany<Class>(s => s.Classes)
                 .WithOne(Class=>Class.School)
-                .HasForeignKey(C => C.SchoolID);
+                .HasForeignKey(C => C.SchoolID)
+                .OnDelete(DeleteBehavior.Restrict);
 
                 //one to many for Managers and Teachers
             modelBuilder.Entity<Manager>()
@@ -67,12 +68,12 @@ namespace Backend.Data
             // many to many relationship for Subjects and Students
             modelBuilder.Entity<SubjectStudent>()
             .HasOne<Subject>(S => S.Subject)
-            .WithMany(SS=>SS.SubjectStudent)
+            .WithMany(SS=>SS.SubjectStudents)
             .HasForeignKey(S => S.SubjectID)
             .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<SubjectStudent>()
             .HasOne<Student>(S=>S.Student)
-            .WithMany(SS=>SS.SubjectStudent)
+            .WithMany(SS=>SS.SubjectStudents)
             .HasForeignKey(S=>S.StudentID)
             .OnDelete(DeleteBehavior.Restrict);
 
@@ -87,31 +88,36 @@ namespace Backend.Data
             modelBuilder.Entity<Class>()
             .HasMany<Subject>(S=>S.Subjects)
             .WithOne(C=>C.Class)
-            .HasForeignKey(S=>S.SubjectID);
+            .HasForeignKey(S=>S.SubjectID)
+            .OnDelete(DeleteBehavior.Restrict);
 
             // One to many relationship for Class and Division
             modelBuilder.Entity<Class>()
             .HasMany<Division>(D=>D.Divisions)
             .WithOne(C=>C.Class)
-            .HasForeignKey(D=>D.DivisionID);
+            .HasForeignKey(D=>D.DivisionID)
+            .OnDelete(DeleteBehavior.Restrict);
 
             // One to many relationship for Division and Student
             modelBuilder.Entity<Division>()
             .HasMany<Student>(S=>S.Students)
             .WithOne(D=>D.Division)
-            .HasForeignKey(S=>S.StudentID);
+            .HasForeignKey(S=>S.StudentID)
+            .OnDelete(DeleteBehavior.Restrict);
 
             // One to one relationship for class and Teacher
             modelBuilder.Entity<Class>()
                 .HasOne<Teacher>(C => C.Teacher)
                 .WithOne(T => T.Class)
-                .HasForeignKey<Teacher>(C => C.ClassID);  
+                .HasForeignKey<Teacher>(C => C.ClassID)
+                .OnDelete(DeleteBehavior.Restrict);
             
             // One to many relationship for class and Teacher
             modelBuilder.Entity<Guardian>()
             .HasMany<Student>(S=>S.Students)
-            .WithOne(G=>G.Guardians)
-            .HasForeignKey(S=>S.StudentID);
+            .WithOne(G=>G.Guardian)
+            .HasForeignKey(S=>S.StudentID)
+            .OnDelete(DeleteBehavior.Restrict);
 
 
         }

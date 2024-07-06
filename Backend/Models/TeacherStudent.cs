@@ -12,3 +12,4 @@ public class TeacherStudent
     public int TeacherID { get; set; }
     public Teacher Teacher { get; set; }
 }
+
