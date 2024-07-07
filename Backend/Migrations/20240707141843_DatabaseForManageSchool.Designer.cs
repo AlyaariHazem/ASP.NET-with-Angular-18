@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240706234114_AutoIncrement")]
-    partial class AutoIncrement
+    [Migration("20240707141843_DatabaseForManageSchool")]
+    partial class DatabaseForManageSchool
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,7 +54,10 @@ namespace Backend.Migrations
             modelBuilder.Entity("Backend.Models.Division", b =>
                 {
                     b.Property<int>("DivisionID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DivisionID"));
 
                     b.Property<int>("ClassID")
                         .HasColumnType("int");
@@ -64,6 +67,8 @@ namespace Backend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DivisionID");
+
+                    b.HasIndex("ClassID");
 
                     b.ToTable("Divisions");
                 });
@@ -139,7 +144,13 @@ namespace Backend.Migrations
                     b.Property<int>("Phone")
                         .HasColumnType("int");
 
+                    b.Property<int>("SchoolID")
+                        .HasColumnType("int");
+
                     b.HasKey("ManagerID");
+
+                    b.HasIndex("SchoolID")
+                        .IsUnique();
 
                     b.ToTable("Managers");
                 });
@@ -151,9 +162,6 @@ namespace Backend.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SchoolID"));
-
-                    b.Property<int>("ManagerID")
-                        .HasColumnType("int");
 
                     b.Property<string>("Notes")
                         .IsRequired()
@@ -169,9 +177,6 @@ namespace Backend.Migrations
 
                     b.HasKey("SchoolID");
 
-                    b.HasIndex("ManagerID")
-                        .IsUnique();
-
                     b.ToTable("Schools");
                 });
 
@@ -180,6 +185,8 @@ namespace Backend.Migrations
                     b.Property<int>("StudentID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentID"));
 
                     b.Property<string>("Appreciation")
                         .IsRequired()
@@ -226,13 +233,20 @@ namespace Backend.Migrations
 
                     b.HasKey("StudentID");
 
+                    b.HasIndex("DivisionID");
+
+                    b.HasIndex("GuardianID");
+
                     b.ToTable("Students");
                 });
 
             modelBuilder.Entity("Backend.Models.Subject", b =>
                 {
                     b.Property<int>("SubjectID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubjectID"));
 
                     b.Property<int>("ClassID")
                         .HasColumnType("int");
@@ -242,6 +256,8 @@ namespace Backend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SubjectID");
+
+                    b.HasIndex("ClassID");
 
                     b.ToTable("Subjects");
                 });
@@ -269,6 +285,8 @@ namespace Backend.Migrations
                     b.Property<int>("TeacherID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TeacherID"));
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -304,6 +322,8 @@ namespace Backend.Migrations
 
                     b.HasKey("TeacherID");
 
+                    b.HasIndex("ManagerID");
+
                     b.ToTable("Teachers");
                 });
 
@@ -337,36 +357,36 @@ namespace Backend.Migrations
                 {
                     b.HasOne("Backend.Models.Class", "Class")
                         .WithMany("Divisions")
-                        .HasForeignKey("DivisionID")
+                        .HasForeignKey("ClassID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Class");
                 });
 
-            modelBuilder.Entity("Backend.Models.School", b =>
+            modelBuilder.Entity("Backend.Models.Manager", b =>
                 {
-                    b.HasOne("Backend.Models.Manager", "Manager")
-                        .WithOne("School")
-                        .HasForeignKey("Backend.Models.School", "ManagerID")
+                    b.HasOne("Backend.Models.School", "School")
+                        .WithOne("Manager")
+                        .HasForeignKey("Backend.Models.Manager", "SchoolID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Manager");
+                    b.Navigation("School");
                 });
 
             modelBuilder.Entity("Backend.Models.Student", b =>
                 {
                     b.HasOne("Backend.Models.Division", "Division")
                         .WithMany("Students")
-                        .HasForeignKey("StudentID")
+                        .HasForeignKey("DivisionID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Backend.Models.Guardian", "Guardian")
                         .WithMany("Students")
-                        .HasForeignKey("StudentID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasForeignKey("GuardianID")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Division");
@@ -378,7 +398,7 @@ namespace Backend.Migrations
                 {
                     b.HasOne("Backend.Models.Class", "Class")
                         .WithMany("Subjects")
-                        .HasForeignKey("SubjectID")
+                        .HasForeignKey("ClassID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -408,7 +428,7 @@ namespace Backend.Migrations
                 {
                     b.HasOne("Backend.Models.Manager", "Manager")
                         .WithMany("Teachers")
-                        .HasForeignKey("TeacherID")
+                        .HasForeignKey("ManagerID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -453,15 +473,15 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Models.Manager", b =>
                 {
-                    b.Navigation("School")
-                        .IsRequired();
-
                     b.Navigation("Teachers");
                 });
 
             modelBuilder.Entity("Backend.Models.School", b =>
                 {
                     b.Navigation("Classes");
+
+                    b.Navigation("Manager")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Backend.Models.Student", b =>

@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backend.Controllers;
+namespace Backend.Controllers
+{
 [Route("api/Teacher")]
 [ApiController]
 public class TeacherController : ControllerBase
@@ -35,4 +36,5 @@ public class TeacherController : ControllerBase
 
         return Ok(Teacher);
     }
+}
 }

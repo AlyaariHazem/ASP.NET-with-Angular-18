@@ -8,9 +8,7 @@
 // public class User
 // {
 //     public int UserID { get; set; }
-//     public string FirstName { get; set; }
-//     public string MiddleName { get; set; }
-//     public string LastName { get; set; }
+//     public Name FullName { get; set; }
 //     public string Phone { get; set; }
 //     public string Password { get; set; }
 //     public DateTime CreatedAt { get; set; }= DateTime.Now;

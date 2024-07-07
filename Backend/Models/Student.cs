@@ -7,14 +7,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Backend.Models
 {
-    public class Student
+  public class Student
     {
-        [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int StudentID { get; set; }
-        public string FirstName { get; set; } = string.Empty;
-        public string MiddleName { get; set; } = string.Empty;
-        public string LastName { get; set; } = string.Empty;
+        public Name Name { get; set; }
         public DateOnly DateOfBirth { get; set; }
         public string Gender { get; set; } = string.Empty;
         public int Grade { get; set; }

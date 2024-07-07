@@ -27,10 +27,10 @@ namespace Backend.Data
             modelBuilder.Entity<TeacherStudent>().HasKey(TS => new { TS.StudentID, TS.TeacherID });
             modelBuilder.Entity<SubjectStudent>().HasKey(SS => new { SS.SubjectID, SS.StudentID });
 
-            modelBuilder.Entity<Manager>()
-                .HasOne<School>(m => m.School)
-                .WithOne(s => s.Manager)
-                .HasForeignKey<School>(m => m.ManagerID);
+            modelBuilder.Entity<School>()
+                .HasOne<Manager>(m => m.Manager)
+                .WithOne(s => s.School)
+                .HasForeignKey<Manager>(m => m.SchoolID);
 
             // many to many relationship for Teachers and Students
             modelBuilder.Entity<TeacherStudent>()
@@ -55,7 +55,7 @@ namespace Backend.Data
             modelBuilder.Entity<Manager>()
                 .HasMany<Teacher>(T => T.Teachers)
                 .WithOne(M => M.Manager)
-                .HasForeignKey(T => T.TeacherID)
+                .HasForeignKey(T => T.ManagerID)
                 .OnDelete(DeleteBehavior.Restrict); // Restrict to prevent deletion of Teachers when Manager is deleted
 
             // many to many relationship for Subjects and Students
@@ -74,39 +74,33 @@ namespace Backend.Data
             modelBuilder.Entity<Class>()
                 .HasMany<Subject>(S => S.Subjects)
                 .WithOne(C => C.Class)
-                .HasForeignKey(S => S.SubjectID)
+                .HasForeignKey(S => S.ClassID)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // one to many relationship for Class and Division
             modelBuilder.Entity<Class>()
                 .HasMany<Division>(D => D.Divisions)
                 .WithOne(C => C.Class)
-                .HasForeignKey(D => D.DivisionID)
+                .HasForeignKey(D => D.ClassID)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // one to many relationship for Division and Student
             modelBuilder.Entity<Division>()
                 .HasMany<Student>(S => S.Students)
                 .WithOne(D => D.Division)
-                .HasForeignKey(S => S.StudentID)
+                .HasForeignKey(S => S.DivisionID)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // one to many relationship for Guardian and Students
             modelBuilder.Entity<Guardian>()
                 .HasMany<Student>(S => S.Students)
                 .WithOne(G => G.Guardian)
-                .HasForeignKey(S => S.StudentID)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            // Configure the TeacherID to be auto-incremented
-            modelBuilder.Entity<Teacher>()
-                .Property(t => t.TeacherID)
-                .ValueGeneratedOnAdd();
-
-            // Configure the StudentID to be auto-incremented
+                .HasForeignKey(S => S.GuardianID)
+                .OnDelete(DeleteBehavior.Cascade);
+                
+            //composite Atribute for Student and Name
             modelBuilder.Entity<Student>()
-                .Property(s => s.StudentID)
-                .ValueGeneratedOnAdd();
+            .OwnsOne(s => s.Name);
         }
     }
 }
