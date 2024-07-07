@@ -16,9 +16,4 @@ public class Manager
     public School School { get; set; }
     public ICollection<Teacher> Teachers { get; set; }
 
-    // public int YearID { get; set; }
-
-    // public IList<School> Schools { get; set; }
-    // public IList<Teacher> Teachers { get; set; }
-    // public IList<ManagerTeacher> ManagerTeachers { get; set; } 
 }

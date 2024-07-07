@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace Backend.Models;
 
 public class Teacher
 {
+     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
    public int TeacherID { get; set; }
     public string FirstName { get; set; } = string.Empty;
     public string MiddleName { get; set; } = string.Empty;
@@ -19,16 +23,9 @@ public class Teacher
     public int Phone { get; set; }
     // public DateTime SalaryPaymentDate { get; set; }=DateTime.Now;
     public string Password { get; set; } = string.Empty;
-    // public int? TeacherManagedClassID { get; set; }
     // public int TeacherUserID { get; set; }
     public int ManagerID { get; set; }
     public Manager Manager { get; set; }
-    public Class Class { get; set; }
-    public int ClassID { get; set; }
     public ICollection<TeacherStudent> TeacherStudents { get; set; }
 
-    // public Class ManagedClass { get; set; }
-    // public User User { get; set; }
-    // public IList<TeacherStudentSubject> TeacherStudentSubjects { get; set; }
-    // public IList<ManagerTeacher> ManagerTeachers { get; set; }
 }

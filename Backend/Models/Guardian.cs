@@ -17,10 +17,4 @@ public class Guardian
     public string TypeGuardian { get; set; }
     public string Description { get; set; }
     public ICollection<Student> Students { get; set; }
-
-
-    // public int UserID { get; set; }
-
-    // public User User { get; set; }
-    // public IList<FeepaymentStudentGardian> FeepaymentStudentGardian { get; set; }
 }

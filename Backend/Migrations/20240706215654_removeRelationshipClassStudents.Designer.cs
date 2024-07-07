@@ -4,6 +4,7 @@ using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240706215654_removeRelationshipClassStudents")]
+    partial class removeRelationshipClassStudents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -175,12 +178,7 @@ namespace Backend.Migrations
             modelBuilder.Entity("Backend.Models.Student", b =>
                 {
                     b.Property<int>("StudentID")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    b.Property<string>("Appreciation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateOnly>("DateOfBirth")
                         .HasColumnType("date");
@@ -249,9 +247,6 @@ namespace Backend.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("StudentID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Grade")
                         .HasColumnType("int");
 
                     b.HasKey("SubjectID", "StudentID");
