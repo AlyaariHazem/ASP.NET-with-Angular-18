@@ -10,9 +10,10 @@ namespace Backend.Models
         public int ClassID { get; set; }
         public string ClassName { get; set; }
         public string ClassYear { get; set; }
-        public School School { get; set; }
-        public int SchoolID { get; set; }
+        public int PhaseID { get; set; }
+        public Phase Phase { get; set; }
         public ICollection<Subject> Subjects { get; set; }
         public ICollection<Division> Divisions { get; set; }
+        public ICollection<StudentClass> StudentClass { get; set; }
     }
 }

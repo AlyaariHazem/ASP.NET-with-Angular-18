@@ -1,20 +1,20 @@
-// using System;
-// using System.Collections.Generic;
-// using System.Linq;
-// using System.Threading.Tasks;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-// namespace Backend.Models;
+namespace Backend.Models
+{
+public class Year
+{
+    public int YearID { get; set; }
+    public DateOnly YearDateStart { get; set; }
+    public DateOnly YearDateEnd { get; set; }
+    public DateOnly HireDate { get; set; }
+    public bool Active { get; set; }
+    public int SchoolID { get; set; }
+    public School School { get; set; }
+    public ICollection<Phase> Phases { get; set; }
 
-// public class Year
-// {
-//     public int YearID { get; set; }
-//     public DateTime YearFrom { get; set; }
-//     public DateTime YearTo { get; set; }
-//     public string Note { get; set; }
-//     public bool Active { get; set; }
-//     public DateTime HireDate { get; set; }
-//     public int YearSchoolID { get; set; }
-//     public School School { get; set; }
-    
-    
-// }
+}
+}

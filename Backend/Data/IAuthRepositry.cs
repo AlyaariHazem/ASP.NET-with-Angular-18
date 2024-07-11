@@ -8,7 +8,7 @@ namespace Backend.Data;
 
 public interface IAuthRepositry
 {
-    Task<Student> GetStudent(int id);
-    Task<List<Student>> GetStudents();
-    Task<
+    Task<User> register(User user,string password);
+    Task<User> Login(string username,string password);
+    
 }

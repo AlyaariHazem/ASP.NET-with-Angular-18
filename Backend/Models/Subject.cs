@@ -12,5 +12,6 @@ namespace Backend.Models
         public int ClassID { get; set; }
         public Class Class { get; set; }
         public ICollection<SubjectStudent> SubjectStudents { get; set; }
+        public ICollection<TeacherSubjectStudent> TeacherSubjectStudents { get; set; }
     }
     }

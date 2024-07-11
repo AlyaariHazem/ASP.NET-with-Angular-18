@@ -13,14 +13,18 @@ namespace Backend.Models
        
         public int TeacherID { get; set; }
         public Name FullName { get; set; }
-        public DateOnly HireDate { get; set; }
-        public string Gender { get; set; } = string.Empty;
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal Salary { get; set; }
         public int Phone { get; set; }
         public string Password { get; set; } = string.Empty;
+        public string? Email { get; set; }
+        public string Gender { get; set; } = string.Empty;
+        public int? Age { get; set; }
+        public DateOnly HireDate { get; set; }
         public int ManagerID { get; set; }
         public Manager Manager { get; set; }
+        public int UserID { get; set; }
+        public User User { get; set; }
+        public ICollection<Salary> Salaries { get; set; }
         public ICollection<TeacherStudent> TeacherStudents { get; set; }
+        public ICollection<TeacherSubjectStudent> TeacherSubjectStudents { get; set; }
     }
 }
