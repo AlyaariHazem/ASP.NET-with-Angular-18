@@ -37,7 +37,8 @@ namespace Backend.Data
             modelBuilder.Entity<School>()
                 .HasOne<Manager>(m => m.Manager)
                 .WithOne(s => s.School)
-                .HasForeignKey<Manager>(m => m.SchoolID);
+                .HasForeignKey<Manager>(m => m.SchoolID)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // many to many relationship for Teachers and Students
             modelBuilder.Entity<TeacherStudent>()
@@ -153,10 +154,6 @@ namespace Backend.Data
 
             //composite Atribute for Manager and Name
             modelBuilder.Entity<Manager>()
-            .OwnsOne(M => M.FullName);
-
-            //composite Atribute for User and Name
-            modelBuilder.Entity<User>()
             .OwnsOne(M => M.FullName);
 
             //this is for Roles 

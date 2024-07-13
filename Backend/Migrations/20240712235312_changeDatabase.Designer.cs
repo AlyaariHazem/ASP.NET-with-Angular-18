@@ -4,6 +4,7 @@ using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240712235312_changeDatabase")]
+    partial class changeDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,8 +90,8 @@ namespace Backend.Migrations
                     b.Property<string>("Job")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Phone")
+                        .HasColumnType("int");
 
                     b.Property<string>("TypeGuardian")
                         .HasColumnType("nvarchar(max)");
@@ -118,9 +121,8 @@ namespace Backend.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Phone")
+                        .HasColumnType("int");
 
                     b.Property<int>("SchoolID")
                         .HasColumnType("int");
@@ -287,8 +289,8 @@ namespace Backend.Migrations
                     b.Property<int>("GuardianID")
                         .HasColumnType("int");
 
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Phone")
+                        .HasColumnType("int");
 
                     b.Property<int>("UserID")
                         .HasColumnType("int");
@@ -384,9 +386,8 @@ namespace Backend.Migrations
                     b.Property<int>("ManagerID")
                         .HasColumnType("int");
 
-                    b.Property<string>("PhoneNum")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PhoneNum")
+                        .HasColumnType("int");
 
                     b.Property<int>("UserID")
                         .HasColumnType("int");

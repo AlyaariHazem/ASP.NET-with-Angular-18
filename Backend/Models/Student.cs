@@ -4,65 +4,33 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Backend.Models
 {
     public class Student
     {
         public int StudentID { get; set; }
+        [Required]
         public Name FullName { get; set; }
         public DateOnly DateOfBirth { get; set; }
         public string Gender { get; set; } = string.Empty;
 
-        // Calculated Rate property
-        public int Rate
-        {
-            get
-            {
-                if (SubjectStudents.Any())
-                {
-                    return (int)SubjectStudents.Average(ss => ss.Grade);
-                }
-                return 0;
-            }
-        }
-
-        public int? Phone { get; set; }
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
-
-        // Calculated Appreciation property
-        public string Appreciation
-        {
-            get
-            {
-                if (Rate >= 90)
-                {
-                    return "Excellent";
-                }
-                else if (Rate >= 80)
-                {
-                    return "Very Good";
-                }
-                else if (Rate >= 50)
-                {
-                    return "Good";
-                }
-                else
-                {
-                    return "Failed";
-                }
-            }
-        }
-
+        public string? Phone { get; set; }
+        [Required]
         public int GuardianID { get; set; }
+        [JsonIgnore]
         public Guardian Guardian { get; set; }
+        [Required]
         public int UserID { get; set; }
+        [JsonIgnore]
         public User User { get; set; }
+        [Required]
+        public int DivisionID { get; set; }
+        [JsonIgnore]
+        public Division Division { get; set; }
         public ICollection<TeacherStudent> TeacherStudents { get; set; }
         public ICollection<SubjectStudent> SubjectStudents { get; set; }
-        public int DivisionID { get; set; }
-        public Division Division { get; set; }
         public ICollection<TeacherSubjectStudent> TeacherSubjectStudents { get; set; }
         public ICollection<StudentClass> StudentClass { get; set; }
     }
