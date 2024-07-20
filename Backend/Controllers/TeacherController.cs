@@ -31,7 +31,7 @@ public class TeacherController : ControllerBase
         var Teacher = await _context.Teachers.FindAsync(id);
         if (Teacher == null)
         {
-            return BadRequest("Cant find the Teacher");
+            return BadRequest("Can't find the Teacher");
         }
 
         return Ok(Teacher);

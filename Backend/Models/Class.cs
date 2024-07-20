@@ -14,8 +14,8 @@ namespace Backend.Models
         public int PhaseID { get; set; }
         [JsonIgnore]
         public Phase Phase { get; set; }
-        public ICollection<Subject> Subjects { get; set; }
-        public ICollection<Division> Divisions { get; set; }
-        public ICollection<StudentClass> StudentClass { get; set; }
+        public virtual ICollection<Subject> Subjects { get; set; }
+        public virtual ICollection<Division> Divisions { get; set; }
+        public virtual ICollection<StudentClass> StudentClass { get; set; }
     }
 }

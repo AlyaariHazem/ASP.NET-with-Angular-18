@@ -16,7 +16,7 @@ namespace Backend.Models
         public int YearID { get; set; }
         [JsonIgnore]
         public Year Year { get; set; }
-        public ICollection<Class> Classes { get; set; }
+        public virtual ICollection<Class> Classes { get; set; }
 
     }
 }

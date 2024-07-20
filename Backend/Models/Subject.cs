@@ -13,7 +13,7 @@ namespace Backend.Models
         public int ClassID { get; set; }
         [JsonIgnore]
         public Class Class { get; set; }
-        public ICollection<SubjectStudent> SubjectStudents { get; set; }
-        public ICollection<TeacherSubjectStudent> TeacherSubjectStudents { get; set; }
+        public virtual ICollection<SubjectStudent> SubjectStudents { get; set; }
+        public virtual ICollection<TeacherSubjectStudent> TeacherSubjectStudents { get; set; }
     }
     }

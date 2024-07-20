@@ -4,7 +4,6 @@ import { StudentsServicesService } from '../../../core/services/student.service'
 import { Students } from '../../../core/models/students.model';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
-import { EditStudentComponent } from '../students/edit-student/edit-student.component';
 
 export interface DialogData {
     student: Students;
@@ -22,22 +21,6 @@ export class DashboardComponent implements OnInit {
   toastr = inject(ToastrService);
   constructor(public dialog: MatDialog) {}
 
-  openDialog(student: Students): void {
-    const dialogRef = this.dialog.open(EditStudentComponent, {
-      data: { student: student },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        // Update the student list with the edited student
-        this.students = this.students.map((s) => (s.id === result.id ? result : s));
-        // Refresh the student list
-        this.refreshStudent();
-      }
-      this.refreshStudent();
-    });
-    this.refreshStudent();
-  }
   
 
   ngOnInit(): void {

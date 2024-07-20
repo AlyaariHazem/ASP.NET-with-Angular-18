@@ -24,7 +24,7 @@ namespace Backend.Models
         public int UserID { get; set; }
         [JsonIgnore]
         public User User { get; set; }
-        public ICollection<Teacher> Teachers { get; set; }
+        public virtual ICollection<Teacher> Teachers { get; set; }
 
     }
 }

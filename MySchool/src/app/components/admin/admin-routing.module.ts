@@ -4,15 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageHeaderComponent } from './page-header/page-header.component';
 import { NavigateComponent } from './navigate/navigate.component';
-import { AboutStudentComponent } from './students/about-student/about-student.component';
-import { AddStudentComponent } from './students/add-student/add-student.component';
-import { AllStudentsComponent } from './students/all-students/all-students.component';
-import { TeachersComponent } from './teachers/teachers.component';
-import { StudyYearComponent } from './sittings/study-year/study-year.component';
-import { SchoolInfoComponent } from './sittings/school-info/school-info.component';
-import { StagesGradesComponent } from './sittings/stages-grades/stages-grades.component';
-import { ChartForStudentComponent } from './students/chart-for-student/chart-for-student.component';
-import { StudentsComponent } from './students/students.component';
+import { UsersComponent } from './users/users.component';
+import { MediaPartalComponent } from './media-partal/media-partal.component';
+import { CustomerComponent } from './customer/customer.component';
+import { MessagesComponent } from './messages/messages.component';
+import { FileManagerComponent } from './file-manager/file-manager.component';
+import { SittingComponent } from './sitting/sitting.component';
+import { SchoolsComponent } from './schools/schools.component';
 
 const routes: Routes = [
   {
@@ -21,24 +19,14 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent, data: { breadcrumb: '' } },
       { path: 'sidebar', component: PageHeaderComponent , data: { breadcrumb: 'Sidebar' } },
-      { path: 'students', data: { breadcrumb: 'الطلاب' }, children: [
-          { path: 'all-students', component: StudentsComponent, data: { breadcrumb: 'جميع الطلاب' } },
-          { path: 'about-students', component: AboutStudentComponent, data: { breadcrumb: 'عن الطلاب' } },
-          { path: 'add-student', component: AddStudentComponent, data: { breadcrumb: 'إضافة طالب' } },
-          { path: 'edit-student', component: AllStudentsComponent, data: { breadcrumb: 'تعديل طالب' } },
-          { path: 'chart-for-student', component: ChartForStudentComponent, data: { breadcrumb: ' طالب' } },
-          { path: '', redirectTo: 'all-students', pathMatch: 'full' }
-        ]
-      },
-      {
-        path:'sitting',data:{breadcrumb:'الإعدادات'},children:[
-          {path:'years',component:StudyYearComponent,data:{breadcrumb:'السنوات الدراسية'}},
-          {path:'schoolInfo',component:SchoolInfoComponent,data:{breadcrumb:'معلومات المدرية'}},
-          {path:'stages',component:StagesGradesComponent,data:{breadcrumb:'المراحل والفصول'}},
-        ]
-      }
-      ,
-      { path: 'teacher', component: TeachersComponent, data: { breadcrumb: 'الإستاذ' } },
+      { path: 'school', component: SchoolsComponent , data: { breadcrumb: 'المدارس' } },
+      { path: 'user', component: UsersComponent , data: { breadcrumb: 'المستخدمين' } },
+      { path: 'media', component: MediaPartalComponent , data: { breadcrumb: 'بوابة الإعلام' } },
+      { path: 'customer', component: CustomerComponent , data: { breadcrumb: 'الزبائن' } },
+      { path: 'message', component: MessagesComponent , data: { breadcrumb: 'الرسائل' } },
+      { path: 'file', component: FileManagerComponent , data: { breadcrumb: 'ملف المدير' } },
+      { path: 'sitting', component:SittingComponent  , data: { breadcrumb: 'الإعدادات' } },
+      
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },

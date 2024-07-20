@@ -16,7 +16,7 @@ namespace Backend.Models
         public int SchoolID { get; set; }
         [JsonIgnore]
         public School School { get; set; }
-        public ICollection<Phase> Phases { get; set; }
+        public virtual ICollection<Phase> Phases { get; set; }
 
     }
 }

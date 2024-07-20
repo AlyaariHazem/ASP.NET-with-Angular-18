@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Backend.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -75,8 +76,10 @@ namespace Backend.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> login(UserForLoginDto userForLoginDto)
         {
+
             var userFromReop = await _repo.Login(userForLoginDto.UserName.ToLower(), userForLoginDto.Password, userForLoginDto.UserType.ToLower());
             if (userFromReop == null) return Unauthorized();
+
 
             var claims = new[]
             {

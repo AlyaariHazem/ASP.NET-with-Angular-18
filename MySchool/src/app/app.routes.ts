@@ -9,9 +9,14 @@ export const routes: Routes = [
         component:LoginComponent
     },
     {
+        path:'school',
+        loadChildren: ()=> import('./components/school/school.module').then(m=> m.SchoolModule),
+        canMatch:[adminGuardGuard]
+    },
+    {
         path:'admin',
         loadChildren: ()=> import('./components/admin/admin.module').then(m=> m.AdminModule),
-        // canMatch:[adminGuardGuard]
+        canMatch:[adminGuardGuard]
     },
     { path: '**', redirectTo: '', pathMatch: 'full' }
     

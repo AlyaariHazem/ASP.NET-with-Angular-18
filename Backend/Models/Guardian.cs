@@ -9,7 +9,7 @@ namespace Backend.Models
 {
     public class Guardian
     {
-        [Required]
+        [Key]
         public int GuardianID { get; set; }
         [Required]
         public Name FullName { get; set; }
@@ -21,6 +21,6 @@ namespace Backend.Models
         public int UserID { get; set; }
         [JsonIgnore]
         public User User { get; set; }
-        public ICollection<Student> Students { get; set; }
+        public virtual ICollection<Student> Students { get; set; }
     }
 }
